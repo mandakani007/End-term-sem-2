@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-time Name Display</title>
+    <title>Real-time Name Display with React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-    <h1>Enter Your Name</h1>
-    <input type="text" id="nameInput" placeholder="Enter your name here">
-    <p>Your name: <span id="nameDisplay"></span></p>
+    <div id="root"></div>
 
-    <script>
-        const nameInput = document.getElementById('nameInput');
-        const nameDisplay = document.getElementById('nameDisplay');
+    <script type="text/babel">
+        const { useState } = React;
 
-        nameInput.addEventListener('input', function() {
-            nameDisplay.textContent = nameInput.value;
-        });
+        function App() {
+            const [name, setName] = useState('');
+
+            const handleChange = (event) => {
+                setName(event.target.value);
+            };
+
+            return (
+                <div>
+                    <h1>Enter Your Name</h1>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={handleChange}
+                        placeholder="Enter your name here"
+                    />
+                    <p>Your name: {name}</p>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
